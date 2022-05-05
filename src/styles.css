@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+html body {
+  /* background-color: #6c757d; */
+  /* background-color: #3f4761; */
+  background: rgb(66, 97, 63);
+  background: linear-gradient(119deg, rgba(66, 97, 63, 1) 0%, rgba(97,89,63,1) 100%);
+}

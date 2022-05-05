@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <app-alert
+      (close)="onClose()"
+      *ngIf="friendModal"
+      [user]="activeUser"
+      [message]="
+        activeUser.isFriends ? 'Now friends with' : 'No longer friends with'
+      "
+    ></app-alert>
+    <div class="col-md-4 mb30">
+      <div class="card">
+        <div class="card-content pt20 pb20 profile-header">
+          <img
+            [src]="activeUser.imagePath"
+            alt="user profile picture"
+            class="img-fluid rounded"
+          />
+          <h3 class="card-title text-center mb20">{{ activeUser.name }}</h3>
+          <hr />
+          <h5>{{ activeUser.bio }}</h5>
+          <br />
+          <div class="d-grid gap-2">
+            <button
+              *ngIf="!activeUser.isFriends"
+              class="btn btn-success"
+              (click)="onAddFriend(activeUser)"
+            >
+              Add Friend
+            </button>
+            <button
+              *ngIf="activeUser.isFriends"
+              class="btn btn-danger"
+              (click)="onDeleteFriend(activeUser)"
+            >
+              Delete Friend
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 mb30">
+      <div *ngFor="let post of posts">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ post.name }}
+            </h5>
+            <p *ngIf="post.date" class="card-text">
+              <small class="text-muted">{{ post.date | date: "short" }}</small>
+            </p>
+            <p class="card-text">
+              {{ post.content }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+  .backdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 50;
+}
+
+.alert-box{
+    position: fixed;
+    top: 30vh;
+    left: 20vw;
+    width: 60vw;
+    height: 50vh;
+    padding: 3%;
+    z-index: 100;
+    background: rgba(35, 32, 50, 0.82);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 5px;
+
+}
+
+.alert-box-actions {
+  text-align: center;
+  padding: 3%;
+}
+
+#postText {
+  display: block;
+  width: 90%;
+  height: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  resize: auto;
+  overflow: auto;
+}
+
+#postName {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  top: 5px;
+}
+
+button {
+  height: 3rem;
+  width: 8rem;
+  text-align: center;
+}

@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let post of posts">
+      <div
+        class="card post-card"
+        style="
+          width: auto;
+          height: auto;
+          margin: 2%;
+          box-shadow: 3px 8px 10px 0px #2b2b2b;
+        "
+      >
+        <div class="card-body">
+          <h4 class="card-title">
+            {{ post.userName }}
+          </h4>
+          <h5 class="card-title">
+            {{ post.name }}
+          </h5>
+          <p *ngIf="post.date" class="card-text">
+            <small class="text-muted">{{ post.date | date: "short" }}</small>
+          </p>
+          <p class="card-text">
+            {{ post.content }}
+          </p>
+          <div class="like-button-container">
+            <p class="alert" title="post score">{{ post.likes }}</p>
+            <button class="btn">
+              <i
+                class="fa fa-thumbs-up"
+                title="Like this post"
+                (click)="onLike(post)"
+              ></i>
+            </button>
+            |
+            <button class="btn">
+              <i
+                class="fa fa-thumbs-down"
+                title="Dislike this post"
+                (click)="onDislike(post)"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

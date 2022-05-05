@@ -1,0 +1,27 @@
+<div class="backdrop" (click)="onCloseModal()"></div>
+<div class="alert-box">
+  <input
+    type="text"
+    id="postName"
+    [formControl]="postName"
+    placeholder="Title of your post"
+  />
+  <textarea
+    id="postText"
+    [formControl]="postText"
+    placeholder="Content of your post"
+  ></textarea>
+  <div class="alert-box-actions">
+    <button
+      class="btn btn-success"
+      type="submit"
+      (click)="onSubmitPost(postName.value, postText.value)"
+    >
+      Submit Post
+    </button>
+    |
+    <button class="btn btn-danger" type="button" (click)="onCloseModal()">
+      Cancel
+    </button>
+  </div>
+</div>

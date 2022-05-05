@@ -1,0 +1,99 @@
+<div class="logo-container">
+  <img src="../../assets/GetFriended-Logo.png" alt="GetFriended logo" />
+</div>
+<div class="container">
+  <div class="row">
+    <div
+      class="error-message alert alert-danger"
+      style="text-align: center"
+      *ngIf="error"
+    >
+      <p>{{ error }}</p>
+    </div>
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="form-container">
+        <h2 class="mb-4 mt-4">{{ this.isLoginMode ? "Log In" : "Sign Up" }}</h2>
+        <p class="pb-5" *ngIf="!isLoginMode">
+          Please fill out this form to create an account!
+        </p>
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control mt-5"
+            placeholder="email"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              !authForm.get('email').valid && authForm.get('email').touched
+            "
+            >Please enter a valid e-mail address.</span
+          >
+          <br />
+          <div formGroupName="passwordMatch">
+            <input
+              formControlName="password"
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="password"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                !authForm.get('passwordMatch.password').valid &&
+                authForm.get('passwordMatch.password').touched
+              "
+              >Password must be at least six characters in length.</span
+            >
+
+            <br />
+            <div *ngIf="!isLoginMode">
+              <input
+                formControlName="passwordConfirm"
+                type="password"
+                name="passwordConfirm"
+                class="form-control mb-5"
+                placeholder="confirm password"
+              />
+              <span
+                class="help-block"
+                *ngIf="
+                  authForm.get('passwordMatch').invalid &&
+                  authForm.get('passwordMatch.passwordConfirm').touched
+                "
+                >Passwords must match.</span
+              >
+            </div>
+          </div>
+
+          <br />
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!authForm.valid"
+          >
+            {{ this.isLoginMode ? "Log In" : "Sign Up" }}
+          </button>
+          <br />
+          <p *ngIf="!isLoginMode">
+            Already have an account?
+            <a class="authLink" style="cursor: pointer" (click)="onSwitchAuth()"
+              >Click here</a
+            >
+            to sign in!
+          </p>
+          <p *ngIf="isLoginMode">
+            New here?
+            <a class="authLink" style="cursor: pointer" (click)="onSwitchAuth()"
+              >Click here</a
+            >
+            to sign up!
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

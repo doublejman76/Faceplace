@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand"><img src="../../assets/GetFriended-G-Logo.png" alt="GetFriended Logo"></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link active navbar-brand"
+            routerLink="home"
+            aria-current="page"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link navbar-brand" routerLink="suggested-friends"
+            >Suggested Friends</a
+          >
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a
+            class="nav-link navbar-brand"
+            style="cursor: pointer"
+            (click)="logout()"
+            >Logout</a
+          >
+        </li>
+        <li *ngIf="!isAuthenticated" class="nav-item">
+          <a class="nav-link navbar-brand" routerLink="/auth">Signup/Login</a>
+        </li>
+        <img
+          routerLink="user/0"
+          style="cursor: pointer"
+          width="50px"
+          height="47px"
+          src="https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999"
+          alt=""
+        />
+      </ul>
+    </div>
+  </div>
+</nav>
