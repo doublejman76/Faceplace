@@ -16,43 +16,28 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   isLoggedIn: boolean = false;
 
-  tokenExpirationTImer: any;
+  private tokenExpirationTImer: any;
 
   user = new BehaviorSubject<AuthUser>(null);
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  onSignup(email: string, password: string) {
+  // Sign Up!
+  signUp(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
-          environment.firebaseAPIKey,
-        {
+      .post<any>(
+        'https://face-place-api.herokuapp.com/api/v1/users/create', {
           email: email,
-          password: password,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        catchError(this.handleError),
-        tap((responseData) => {
-          this.handleAuth(
-            responseData.email,
-            responseData.localId,
-            responseData.idToken,
-            +responseData.expiresIn
-          );
-        })
-      );
+          password: password
+          })
   }
 
-  onSignin(email: string, password: string) {
+  // Sign In!
+  signIn(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
@@ -102,7 +87,8 @@ export class AuthService {
     }
   }
 
-  onLogout() {
+  // Sign Out!
+  signOut() {
     this.user.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
@@ -114,21 +100,22 @@ export class AuthService {
 
   autoLogout(expirationTime: number) {
     this.tokenExpirationTImer = setTimeout(() => {
-      this.onLogout();
+      this.signOut();
     }, expirationTime);
   }
 
-  private handleAuth(
-    email: string,
-    localId: string,
-    token: string,
-    expiresIn: number
-  ) {
+  handleAuth(email: string, localId: string, token: string, expiresIn: number) {
+    // Create expiration Date for Token
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
+    // Create a new user based on the info passed in and emit that user
     const user = new AuthUser(email, localId, token, expirationDate);
     this.user.next(user);
+
+    // Set a new timer for expiration token
     this.autoLogout(expiresIn * 1000);
+
+    // Save the new user to localStorage
     localStorage.setItem('userData', JSON.stringify(user));
   }
 

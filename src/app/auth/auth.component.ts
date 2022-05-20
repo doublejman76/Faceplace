@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
 import { AuthResponseData, AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -11,12 +10,15 @@ import { AuthResponseData, AuthService } from './auth.service';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
-  isLoginMode: boolean = false;
-  error: string = null;
+  authObsrv: Observable<AuthResponseData>;
+  errMsg: string = null;
+  msg:string = null;
+
+  isLoginMode: boolean = true;
 
   authForm: FormGroup;
 
-  onSwitchAuth() {
+  onSwitchAuthMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
@@ -43,18 +45,24 @@ export class AuthComponent implements OnInit {
     let password = this.authForm.value.passwordMatch.password;
     let authObservable: Observable<AuthResponseData>;
 
+    // Conditional statement to see what mode we are in
     if (this.isLoginMode) {
-      authObservable = this.authService.onSignin(email, password);
+      // Sign In Logic
+      authObservable = this.authService.signIn(email, password);
     } else {
-      authObservable = this.authService.onSignup(email, password);
+      // Sign Up Logic
+      authObservable = this.authService.signUp(email, password);
     }
 
+    // Observable Logic with Error Handling
     authObservable.subscribe(
       (responseData) => {
+        console.log('AUTH RESPONSE SUCCESS:', responseData);
+        if (this.errMsg) this.errMsg = null;
         this.router.navigate(['/home']);
       },
       (errorMessage) => {
-        this.error = errorMessage;
+        this.errMsg = errorMessage;
       }
     );
 
