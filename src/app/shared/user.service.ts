@@ -204,11 +204,11 @@ export class UserService {
   }
 
   addFriend(user: User) {
-    user.isFriends = true;
+  //  user.isFriends = true;
   }
 
   deleteFriend(user: User) {
-    user.isFriends = false;
+  //  user.isFriends = false;
   }
 
   likePost(post: Post) {

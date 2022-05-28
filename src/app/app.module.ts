@@ -32,7 +32,7 @@ import { AlertComponent } from './shared/alert/alert.component';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

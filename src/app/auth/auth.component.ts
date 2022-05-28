@@ -18,7 +18,8 @@ export class AuthComponent implements OnInit {
 
   authForm: FormGroup;
 
-  onSwitchAuthMode() {
+  // Switches between login mode and sign up mode
+  onSwitchAuth() {
     this.isLoginMode = !this.isLoginMode;
   }
 
@@ -58,14 +59,26 @@ export class AuthComponent implements OnInit {
     authObservable.subscribe(
       (responseData) => {
         console.log('AUTH RESPONSE SUCCESS:', responseData);
+        // if (!this.isLoginMode) this.isLoginMode = !this.isLoginMode
+        // To Navigate the user
+        // CHECK 1: in login mode?
+        // CHECK 2: was it successful?
+
+        if(this.isLoginMode){
+          this.router.navigate(['/home'])
+        }else{
+          this.isLoginMode = !this.isLoginMode
+          this.msg = "You have successfully signed up! Please login!"
+        }
+
         if (this.errMsg) this.errMsg = null;
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
       },
       (errorMessage) => {
         this.errMsg = errorMessage;
       }
     );
-
+    // RESET
     this.authForm.reset();
   }
 

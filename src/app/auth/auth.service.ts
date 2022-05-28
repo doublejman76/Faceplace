@@ -2,10 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
-
+import { User } from '../shared/user.model';
 import { environment } from 'src/environments/environment';
 import { AuthUser } from './auth-user.model';
 import { Router } from '@angular/router';
+import { UserService } from '../shared/user.service';
+
+const SIGN_UP_URL =
+  'https://face-place-api.herokuapp.com/api/v1/users/create';
+const SIGN_IN_URL =
+  'https://face-place-api.herokuapp.com/api/v1/users/login';
 
 export interface AuthResponseData {
   idToken: string;
@@ -18,19 +24,17 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  isLoggedIn: boolean = false;
-
   private tokenExpirationTImer: any;
-
-  user = new BehaviorSubject<AuthUser>(null);
+  userToken: string = null;
+  currUser = new BehaviorSubject<AuthUser>(null);
+  loadedUser: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   // Sign Up!
   signUp(email: string, password: string) {
     return this.http
-      .post<any>(
-        'https://face-place-api.herokuapp.com/api/v1/users/create', {
+      .post<any>(SIGN_UP_URL, {
           email: email,
           password: password
           })
@@ -39,24 +43,21 @@ export class AuthService {
   // Sign In!
   signIn(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
-          environment.firebaseAPIKey,
+      .post<any>(SIGN_IN_URL,
         {
           email: email,
           password: password,
-          returnSecureToken: true,
         }
       )
       .pipe(
         catchError(this.handleError),
         tap((responseData) => {
-          this.handleAuth(
-            responseData.email,
-            responseData.localId,
-            responseData.idToken,
-            +responseData.expiresIn
-          );
+        // Use "object destructuring" to get access to all response values
+        const {email, id} = responseData.payload.user
+        const {expiry, value} = responseData.payload.token
+        const expiresIn = new Date(expiry).getTime() - Date.now()
+        // Pass the response values into handleAuth method
+        this.handleAuth(email, id, value, expiresIn);
         })
       );
   }
@@ -79,7 +80,7 @@ export class AuthService {
     );
 
     if (loadedUser.token) {
-      this.user.next(loadedUser);
+      this.currUser.next(loadedUser);
       const expirationTime =
         new Date(userData._tokenExpirationDate).getTime() -
         new Date().getTime();
@@ -89,13 +90,42 @@ export class AuthService {
 
   // Sign Out!
   signOut() {
-    this.user.next(null);
+    this.currUser.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTImer) {
       clearTimeout(this.tokenExpirationTImer);
     }
     this.tokenExpirationTImer = null;
+  }
+
+  // Auto Sign In
+  autoSignIn() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) return;
+
+    const { email, id, _token, _tokenExpirationDate } = userData;
+
+    const loadedUser = new User(
+      userData.name,
+      userData.email,
+      userData.id,
+      userData.posts,
+      userData.imagePath,
+      userData.bio,
+      userData._token,
+      userData.isFriends,
+      new Date(_tokenExpirationDate)
+    );
+
+    if (this.loadedUser.token) {
+      this.currUser.next(this.loadedUser);
+
+      const expDur =
+        new Date(_tokenExpirationDate).getTime() - new Date().getTime();
+      this.autoLogout(expDur);
+    }
   }
 
   autoLogout(expirationTime: number) {
@@ -110,7 +140,7 @@ export class AuthService {
 
     // Create a new user based on the info passed in and emit that user
     const user = new AuthUser(email, localId, token, expirationDate);
-    this.user.next(user);
+    this.currUser.next(user);
 
     // Set a new timer for expiration token
     this.autoLogout(expiresIn * 1000);
@@ -141,3 +171,7 @@ export class AuthService {
     return throwError(errorMessage);
   }
 }
+function idToken(email: string, localId: any, idToken: any, arg3: number) {
+  throw new Error('Function not implemented.');
+}
+

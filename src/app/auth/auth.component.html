@@ -3,13 +3,6 @@
 </div>
 <div class="container">
   <div class="row">
-    <div
-      class="error-message alert alert-danger"
-      style="text-align: center"
-      *ngIf="errMsg"
-    >
-      <p>{{ error }}</p>
-    </div>
     <div class="col-3"></div>
     <div class="col-6">
       <div class="form-container">
@@ -70,30 +63,23 @@
           </div>
 
           <br />
+          <!-- BUTTONS -->
           <button
+            class="btn-primary btn"
             type="submit"
-            class="btn btn-success"
             [disabled]="!authForm.valid"
           >
             {{ this.isLoginMode ? "Log In" : "Sign Up" }}
           </button>
-          <br />
-          <p *ngIf="!isLoginMode">
-            Already have an account?
-            <a class="authLink" style="cursor: pointer" (click)="onSwitchAuth()"
-              >Click here</a
-            >
-            to sign in!
-          </p>
-          <p *ngIf="isLoginMode">
-            New here?
-            <a class="authLink" style="cursor: pointer" (click)="onSwitchAuth()"
-              >Click here</a
-            >
-            to sign up!
-          </p>
+          |
+          <button class="btn btn-info" type="button" (click)="onSwitchAuth()">
+            Switch to {{ isLoginMode ? "Sign Up" : "Sign In" }}
+          </button>
         </form>
+        <!-- ERROR -->
+        <p class="error-message alert alert-danger" style="text-align: center" *ngIf="errMsg">{{ error }}</p>
+        <p class="error-message alert alert-success" style="text-align: center" *ngIf="msg">{{ msg }}</p>
+       </div>
       </div>
     </div>
   </div>
-</div>
