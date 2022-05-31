@@ -115,7 +115,6 @@ export class AuthService {
       userData.imagePath,
       userData.bio,
       userData._token,
-      userData.isFriends,
       new Date(_tokenExpirationDate)
     );
 

@@ -22,14 +22,12 @@
           <br />
           <div class="d-grid gap-2">
             <button
-              *ngIf="!activeUser.isFriends"
               class="btn btn-success"
               (click)="onAddFriend(activeUser)"
             >
               Add Friend
             </button>
             <button
-              *ngIf="activeUser.isFriends"
               class="btn btn-danger"
               (click)="onDeleteFriend(activeUser)"
             >

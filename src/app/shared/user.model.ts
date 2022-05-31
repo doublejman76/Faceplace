@@ -2,15 +2,17 @@ import { Post } from "./post.model";
 
 export class User {
   constructor(
+    public id: number,
     public name: string,
     public email: string,
-    public id: number,
     public posts: any[],
     public imagePath: string,
     public bio: string,
-    public isFriends: boolean,
-    private _token: string,
-    private _tokenExpirationDate: Date
+    // public isFriends: boolean,
+    // Question marks mean OPTIONAL
+    // token and token expiranDates are optional
+    private _token?: string,
+    private _tokenExpirationDate?: Date
   ) {}
 
   public get token(){
