@@ -70,7 +70,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "GetFriended:build:production"
+              "browserTarget": "Faceplace:build:production"
             },
             "development": {
               "browserTarget": "Faceplace:build:development"
