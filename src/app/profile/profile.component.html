@@ -1,13 +1,5 @@
 <div class="container">
   <div class="row">
-    <app-alert
-      (close)="onClose()"
-      *ngIf="friendModal"
-      [user]="activeUser"
-      [message]="
-        activeUser.isFriends ? 'Now friends with' : 'No longer friends with'
-      "
-    ></app-alert>
     <div class="col-md-4 mb30">
       <div class="card">
         <div class="card-content pt20 pb20 profile-header">
@@ -21,18 +13,6 @@
           <h5>{{ activeUser.bio }}</h5>
           <br />
           <div class="d-grid gap-2">
-            <button
-              class="btn btn-success"
-              (click)="onAddFriend(activeUser)"
-            >
-              Add Friend
-            </button>
-            <button
-              class="btn btn-danger"
-              (click)="onDeleteFriend(activeUser)"
-            >
-              Delete Friend
-            </button>
           </div>
         </div>
       </div>

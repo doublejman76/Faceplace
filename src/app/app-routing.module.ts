@@ -4,14 +4,15 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SuggestedFriendsComponent } from './suggested-friends/suggested-friends.component';
+import { PostsComponent } from './posts/posts.component';
+import { PostModalComponent } from './posts/post-modal/post-modal.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: 'profile', component: HomeComponent },
   {
-    path: 'suggested-friends',
-    component: SuggestedFriendsComponent,
+    path: 'posts',
+    component: PostsComponent,
     canActivate: [AuthGuard],
   },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Post } from '../shared/post.model';
 import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
@@ -11,7 +10,6 @@ import { UserService } from '../shared/user.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  friendModal;
   id: number;
   activeUser: User;
   posts: Post[];
@@ -26,20 +24,5 @@ export class ProfileComponent implements OnInit {
 
     this.activeUser = this.userService.getUserById(+this.id);
     this.posts = this.activeUser.posts;
-  }
-
-  onAddFriend(user){
-    this.userService.addFriend(user);
-    this.friendModal = user;
-  }
-
-  onDeleteFriend(user){
-    this.userService.deleteFriend(user);
-    this.friendModal = user;
-
-  }
-
-  onClose() {
-  this.friendModal = null;
   }
 }

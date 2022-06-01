@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostModalComponent } from './posts/post-modal/post-modal.component';
-import { SuggestedFriendsComponent } from './suggested-friends/suggested-friends.component';
 import { UserService } from './shared/user.service';
 import { AlertComponent } from './shared/alert/alert.component';
 
@@ -24,7 +23,6 @@ import { AlertComponent } from './shared/alert/alert.component';
     AuthComponent,
     ProfileComponent,
     PostModalComponent,
-    SuggestedFriendsComponent,
     AlertComponent
   ],
   imports: [

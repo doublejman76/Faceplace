@@ -65,7 +65,7 @@ export class AuthComponent implements OnInit {
         // CHECK 2: was it successful?
 
         if(this.isLoginMode){
-          this.router.navigate(['/home'])
+          this.router.navigate(['/profile'])
         }else{
           this.isLoginMode = !this.isLoginMode
           this.msg = "You have successfully signed up! Please login!"
