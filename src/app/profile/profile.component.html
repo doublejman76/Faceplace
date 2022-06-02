@@ -1,19 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4 mb30">
-      <div class="card">
-        <div class="card-content pt20 pb20 profile-header">
-          <img
-            [src]="activeUser.imagePath"
-            alt="user profile picture"
-            class="img-fluid rounded"
-          />
-          <h3 class="card-title text-center mb20">{{ activeUser.name }}</h3>
-          <hr />
-          <h5>{{ activeUser.bio }}</h5>
-          <br />
-          <div class="d-grid gap-2">
-          </div>
+    <div class="col-md-5 mb30">
+      <div class="card text-center">
+        <div class="card-header">
+          {{ activeUser }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Boba Fett</h5>
+          <p class="card-text">As you wish..</p>
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@
   height: 3rem;
   left: 25vw;
   top: 5%;
-  color: rgb(26, 24, 24);
-  background: #008037;
+  color: rgb(254, 254, 255);
+  background: #221cd0;
   font-size: 2rem;
   text-align: center;
   padding: none;
@@ -17,7 +17,7 @@
 }
 
 #createPostBtn:hover {
-  background: #cfe675;
+  background: #61c0ce;
   transform: scale(1.025);
   box-shadow: 0 0 10px 0 #488000 inset, 0 0 10px 4px #488000;
 }

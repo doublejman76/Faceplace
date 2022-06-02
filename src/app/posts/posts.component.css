@@ -4,7 +4,7 @@
 } */
 
 .fa {
-  color: rgb(0,128,55);
+  color: rgb(87, 114, 223);
   max-height: fit-content;
   transition: 0.2s ease;
 }
@@ -22,13 +22,6 @@
 }
 
 .post-card {
-  background-color: rgba(216, 233, 147, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-.alert {
-  background-color: rgb(0,128,55);
-  max-width: 10%;
-  max-height: 10%;
-  display: inline-block;
-  color: rgba(201,226,101, 0.8);
-}

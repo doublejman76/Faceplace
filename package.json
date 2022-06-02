@@ -1,6 +1,6 @@
 {
-  "name": "get-friended",
-  "version": "0.0.0",
+  "name": "faceplace",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
