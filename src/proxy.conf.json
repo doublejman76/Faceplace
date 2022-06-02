@@ -1,0 +1,7 @@
+{
+  "*": {
+      "target": "https://face-place-frontend.herokuapp.com/",
+      "secure": false,
+      "logLevel": "debug"
+  }
+}

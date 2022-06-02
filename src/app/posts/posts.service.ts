@@ -12,7 +12,7 @@ export class PostsService {
     // throw new Error('Method not implemented.');
 
     // duplicate of posts
-    return this.posts.slice();
+    return this.myPosts.slice();
   }
   postsSelected = new Subject<Post>();
   postListChanged = new Subject<Post[]>();
@@ -20,9 +20,6 @@ export class PostsService {
 
   constructor(private userService: UserService) {}
 
-
-  // posts: Post[] = this.userService.fetchPosts();
-  posts: Post[] = []
 
   // Data sources should be IMMUTABLE
   private myPosts: Post[] = [];
@@ -54,8 +51,14 @@ export class PostsService {
     this.postsSelected.next(this.getPostById(id));
     // removing the post
     this.myPosts = this.myPosts.filter((post:Post) => post.id != id)
+
+    // Alert those who are subscribed
+    // Update posts
+    this.setPosts(this.myPosts)
   }
 
+
+  // method that alert those who are subscribed
   setPosts(posts: Post[] | []) {
     console.log('postd:', posts);
 
@@ -77,13 +80,13 @@ export class PostsService {
     if (postText == '') {
       return;
     } else {
-      this.posts.push({
+      this.myPosts.push({
         userName: '',
         name: postName,
         content: postText,
         date: new Date(),
       });
-      this.postListChanged.next(this.posts.slice());
+      this.postListChanged.next(this.myPosts.slice());
     }
   }
 }

@@ -10,7 +10,7 @@ import { HttpService } from '../shared/http/http.service';
 import { PostsService } from '../posts/posts.service';
 
 @Injectable({ providedIn: 'root' })
-export class BookResolverService implements Resolve<Post[]> {
+export class PostResolverService implements Resolve<Post[]> {
   constructor(
     private postsService: PostsService,
     private httpService: HttpService

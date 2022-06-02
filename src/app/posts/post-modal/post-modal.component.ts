@@ -23,9 +23,7 @@ export class PostModalComponent implements OnInit {
 
   onSubmitPost(postName: string, postText: string){
     // this.httpService.savePost({content: postText });
-    this.httpService.fetchPosts().subscribe((posts:Post[])=>{
-      console.log(posts)
-    });
+    this.httpService.savePost({content: postText})
     this.close.emit();
   }
 

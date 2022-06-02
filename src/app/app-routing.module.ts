@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostModalComponent } from './posts/post-modal/post-modal.component';
 import { SessionGuard } from './auth/session.guard';
+import { PostResolverService } from './profile/post-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   {
     path: 'posts',
     component: HomeComponent,
+    resolve: [PostResolverService],
   },
   {
     path: 'auth',

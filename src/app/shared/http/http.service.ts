@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { PostsService } from 'src/app/posts/posts.service';
@@ -13,8 +13,9 @@ export class HttpService {
   ) {}
 
   savePost(post:Post) {
+    // https://face-place-api.herokuapp.com/
     this.http
-      .post('https://face-place-frontend.herokuapp.com//api/v1/posts', post)
+      .post('https://face-place-api.herokuapp.com/api/v1/posts', post)
       .subscribe((res: any) => {
         console.log('Firebase DB Response:', res);
         // Update the view
@@ -26,7 +27,7 @@ export class HttpService {
 
   fetchPosts() {
     return this.http
-      .get('https://face-place-frontend.herokuapp.com//api/v1/posts/my_posts')
+      .get('https://face-place-api.herokuapp.com/api/v1/posts/my_posts')
       .pipe(
         tap((res: any) => {
           this.postsService.setPosts(res.payload);
@@ -35,10 +36,10 @@ export class HttpService {
   }
 
   deletePost(id:number){
-    return this.http.delete(`https://face-place-frontend.herokuapp.com//api/v1/posts/${id}`)
+    return this.http.delete(`https://face-place-api.herokuapp.com/api/v1/posts/${id}`)
   }
 
   updatePost(post){
-    return this.http.put(`https://face-place-frontend.herokuapp.com//api/v1/posts/${post.id}`, post)
+    return this.http.put(`https://face-place-api.herokuapp.com/api/v1/posts/${post.id}`, post)
   }
 }
