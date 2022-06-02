@@ -20,13 +20,13 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    canActivate: [SessionGuard],
+    // canActivate: [SessionGuard],
     component: AuthComponent
   },
   {
     path: 'user/:id',
     component: ProfileComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
 ];
 

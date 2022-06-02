@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Post } from '../shared/post.model';
 import { UserService } from '../shared/user.service';
@@ -7,11 +7,67 @@ import { UserService } from '../shared/user.service';
   providedIn: 'root',
 })
 export class PostsService {
-  postsSubject = new Subject<Post[]>();
+  getPosts(): Post[] {
+    // throw new Error('Method not implemented.');
+
+    // duplicate of posts
+    return this.posts.slice();
+  }
+  postsSelected = new Subject<Post>();
+  postListChanged = new Subject<Post[]>();
+;
 
   constructor(private userService: UserService) {}
 
-  posts: Post[] = this.userService.fetchPosts();
+  // posts: Post[] = this.userService.fetchPosts();
+  posts: Post[] = []
+
+  // Data sources should be IMMUTABLE
+  private myPosts: Post[] = [];
+
+  // READ
+  getPost(idx: number) {
+    return this.myPosts.slice()[idx];
+  }
+
+  // CREATE
+  savePost(post: Post) {
+    this.myPosts.push(post);
+    this.postsSelected.next(post);
+    this.postListChanged.next(this.myPosts.slice());
+  }
+
+  // UPDATE
+  updatePost(idx: number, updatedPostInfo: Post) {
+    this.myPosts[idx] = updatedPostInfo;
+    this.postListChanged.next(this.myPosts.slice());
+  }
+
+  getPostById(id){
+    return this.myPosts.find((post:Post) => post.id === id)
+  }
+  // DELETE
+  removePost(id: number) {
+    // We found a post at the index we passed in
+    this.postsSelected.next(this.getPostById(id));
+    // removing the post
+    this.myPosts = this.myPosts.filter((post:Post) => post.id != id)
+  }
+
+  setPosts(posts: Post[] | []) {
+    console.log('postd:', posts);
+
+    this.myPosts = posts || [];
+    this.postListChanged.next(this.myPosts.slice());
+  }
+
+  likePost(post:Post) {
+  this.userService.likePost(post);
+  }
+
+  dislikePost(post:Post) {
+  this.userService.dislikePost(post);
+  }
 
   onSubmitPost(postName, postText) {
     if (postText == '') {
@@ -23,19 +79,7 @@ export class PostsService {
         content: postText,
         date: new Date(),
       });
-      this.postsSubject.next(this.posts.slice());
+      this.postListChanged.next(this.posts.slice());
     }
-  }
-
-  getPosts() {
-    return this.posts.sort((a, b) => +b.date - +a.date);
-  }
-
-  likePost(post:Post) {
-  this.userService.likePost(post);
-  }
-
-  dislikePost(post:Post) {
-  this.userService.dislikePost(post);
   }
 }

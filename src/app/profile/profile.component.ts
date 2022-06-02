@@ -11,8 +11,8 @@ import { UserService } from '../shared/user.service';
 })
 export class ProfileComponent implements OnInit {
   id: number;
-  activeUser: User;
-  posts: Post[];
+  activeUser: User = new User(0, '','',[],'','');
+  posts: Post[] = [];
 
   constructor(
     private userService: UserService,
@@ -20,9 +20,9 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
+    // this.id = this.route.snapshot.params['id'];
 
-    this.activeUser = this.userService.getUserById(+this.id);
-    this.posts = this.activeUser.posts;
+    // this.activeUser = this.userService.getUserById(+this.id);
+    // this.posts = this.activeUser.posts;
   }
 }

@@ -135,14 +135,14 @@ export class AuthService {
 
   handleAuth(email: string, localId: string, token: string, expiresIn: number) {
     // Create expiration Date for Token
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const expirationDate = new Date(new Date().getTime() + expiresIn);
 
     // Create a new user based on the info passed in and emit that user
     const user = new AuthUser(email, localId, token, expirationDate);
     this.currUser.next(user);
 
     // Set a new timer for expiration token
-    this.autoLogout(expiresIn * 1000);
+    this.autoLogout(expiresIn);
 
     // Save the new user to localStorage
     localStorage.setItem('userData', JSON.stringify(user));

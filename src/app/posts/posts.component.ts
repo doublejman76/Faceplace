@@ -9,16 +9,16 @@ import { PostsService } from './posts.service';
 })
 export class PostsComponent implements OnInit {
 
-  posts: Post[];
+  posts: Post[] = [];
 
 
   constructor(private PostsService: PostsService) { }
 
   ngOnInit(): void {
-    this.posts = this.PostsService.getPosts();
-    this.PostsService.postsSubject.subscribe((posts) => {
-      this.posts = posts.sort((a, b) => +b.date - +a.date);
-    })
+    // this.posts = this.PostsService.getPosts();
+    // this.PostsService.postListChanged.subscribe((posts) => {
+    //   this.posts = posts.sort((a, b) => +b.date - +a.date);
+    // })
   }
 
   onLike(post:Post) {
