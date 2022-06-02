@@ -4,7 +4,6 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -18,11 +17,14 @@ export class AuthGuard implements CanActivate {
     return this.authService.currUser.pipe(
       take(1),
       map((user) => {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData) {
+        const userData = JSON.parse(localStorage.getItem('userData'))
+        // if userData persists in the browser
+        // if so, navigate to profile
+        if(userData){
           this.authService.autoSignIn();
           return true;
-        } else {
+        }else{
+        // otherwise, navigate back to auth
           return this.router.createUrlTree(['auth']);
         }
       })

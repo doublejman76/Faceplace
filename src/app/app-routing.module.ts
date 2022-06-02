@@ -6,18 +6,28 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostModalComponent } from './posts/post-modal/post-modal.component';
+import { SessionGuard } from './auth/session.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
-  { path: 'profile', component: HomeComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  },
   {
     path: 'posts',
-    component: PostsComponent,
-    canActivate: [AuthGuard],
+    component: HomeComponent,
   },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'auth', component: AuthComponent },
-  { path: 'user/:id', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'auth',
+    canActivate: [SessionGuard],
+    component: AuthComponent
+  },
+  {
+    path: 'user/:id',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
