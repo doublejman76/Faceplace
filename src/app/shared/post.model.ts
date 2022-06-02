@@ -1,7 +1,7 @@
-export class Post {
- userName: string;
- name: string;
+export interface Post {
  content: string;
+ userName?: string;
+ name?: string;
  id?: number;
  userId?: string;
  date?: Date;

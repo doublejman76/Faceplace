@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { PostsService } from 'src/app/posts/posts.service';
+import { Post } from '../post.model';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
@@ -11,14 +12,14 @@ export class HttpService {
     private postsService: PostsService
   ) {}
 
-  savePost(post) {
+  savePost(post:Post) {
     this.http
       .post('https://face-place-frontend.herokuapp.com//api/v1/posts', post)
       .subscribe((res: any) => {
         console.log('Firebase DB Response:', res);
         // Update the view
         if (res.success) {
-          this.postsService.savePost(res.payload.book);
+          this.postsService.savePost(res.payload.post);
         }
       });
   }

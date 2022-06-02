@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { HttpService } from '../shared/http/http.service';
 import { Post } from '../shared/post.model';
 import { UserService } from '../shared/user.service';
 
@@ -18,6 +19,7 @@ export class PostsService {
 ;
 
   constructor(private userService: UserService) {}
+
 
   // posts: Post[] = this.userService.fetchPosts();
   posts: Post[] = []
@@ -70,6 +72,8 @@ export class PostsService {
   }
 
   onSubmitPost(postName, postText) {
+    console.log('postName', postName)
+    console.log("postText", postText)
     if (postText == '') {
       return;
     } else {

@@ -19,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       exhaustMap((user) => {
         // Make sure we have a user
         if (!user) return next.handle(req);
-
+        console.log(user.token)
         // Modify the reqest to attach the access token
         const modifiedReq = req.clone({
           setHeaders: {

@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { HttpService } from 'src/app/shared/http/http.service';
+import { Post } from 'src/app/shared/post.model';
 import { PostsService } from '../posts.service';
+
 
 @Component({
   selector: 'app-post-modal',
@@ -12,13 +15,17 @@ export class PostModalComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
 
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService,
+              private httpService: HttpService ) { }
 
   ngOnInit(): void {
   }
 
   onSubmitPost(postName: string, postText: string){
-    this.postsService.onSubmitPost(postName, postText);
+    // this.httpService.savePost({content: postText });
+    this.httpService.fetchPosts().subscribe((posts:Post[])=>{
+      console.log(posts)
+    });
     this.close.emit();
   }
 
