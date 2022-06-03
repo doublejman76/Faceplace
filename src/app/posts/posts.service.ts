@@ -60,7 +60,7 @@ export class PostsService {
 
   // method that alert those who are subscribed
   setPosts(posts: Post[] | []) {
-    console.log('postd:', posts);
+    console.log('posts:', posts);
 
     this.myPosts = posts || [];
     this.postListChanged.next(this.myPosts.slice());
